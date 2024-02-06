@@ -9,7 +9,7 @@ import {
   RouterProvider,
   Route,
 } from "react-router-dom";
-import { Home, About, Contact } from "./components/index.js";
+import { Home, About, Contact, User, Github } from "./components/index.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +17,16 @@ const router = createBrowserRouter(
       <Route path="" element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="user/:id" element={<User />} />
+      <Route
+        loader={async () => {
+          return (
+            await fetch("https://api.github.com/users/kamlesh-chowdary")
+          ).json();
+        }}
+        path="github"
+        element={<Github />}
+      />
     </Route>
   )
 );
